@@ -5,32 +5,49 @@ from tkinter import *
 #create screen
 root = Tk()
 
-#crteate space for entry
+#crteate space for entry AND grid
 e=Entry(root,width=35,borderwidth=5)
 e.grid(row=0,column=0,columnspan=4,padx=10,pady=10)
 
 #function for buttons
 def get_buttons(a):
+    
+    #get the input of the button pressed
     current=e.get()
     e.delete(0,END)
+    
+    #insert the entered string at the back of the queue
     e.insert(0,str(current)+str(a))
 
 def do_clear():
     e.delete(0,END)
 
+#do the evalution of the operations entered    
 def call_eval():
     state=e.get()
     e.delete(0,END)
+    
+    #try evalutiing the string expression
     try:
         ans=eval(state)
+        
+        #enter the answer back to the output screen
         e.insert(0,ans)
+    
+    #throw the zero division error if dividing by zero
     except ZeroDivisionError:
+        
+        #make a new window to display popup of the wrong evalution
         wn=Tk()
         wn.title("Invalid input")
         text=Label(wn,text="You cannot divide by 0 !!! ,operation terminated")
+        
+        #finish the button
         b=Button(wn,text="OK",command=wn.destroy)
         text.pack()
         b.pack()
+    
+    #for any other technical error or using invalid arethmetic operators directly from keyboard
     except Exception:
         wn=Tk()
         wn.title("Invalid input")
