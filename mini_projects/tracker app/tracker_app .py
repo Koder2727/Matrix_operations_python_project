@@ -9,14 +9,32 @@ Created on Wed May 19 19:09:03 2021
 
 from tkinter import *
 import sqlite3
+from database import *
+import matplotlib.pyplot as plt
+from IPython import get_ipython
+from operator import add
+
+get_ipython().run_line_magic('matplotlib', 'qt')
 
 #create screen
 root = Tk()
+root.title("Tracker app")
 
 entered_screen = []
 
-def Get_values_last_7(l):
-    return
+def plot_graphs(l):
+    final = [0,0,0,0,0]
+    for i in l:
+        final = list(map(add , final , i))
+    
+    x = ["College Study", "Coding" ,"Video Games"  , "Reading" , "Innovation"]
+    plt.bar(x , final , color = 'g')
+
+def Get_values_last_7():
+    l = Get_last_7_values()
+    plot_graphs(l)
+    
+    return 
 
 #fucntion for the getting the data from the user
 def submit():
